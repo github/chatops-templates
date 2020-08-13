@@ -1,0 +1,155 @@
+{
+  "cardRenderer":[
+    {
+      "SourceType": "IssueOpened",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "issue_opened.handlebars"
+    },
+    {
+      "SourceType": "IssueReopened",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "issue_opened.handlebars"
+    },
+    {
+      "SourceType": "IssueClosed",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "issue_opened.handlebars"
+    },
+    {
+      "SourceType": "IssueReopenedReply",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "issue_closed_reopened.handlebars"
+    },
+    {
+      "SourceType": "IssueClosedReply",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "issue_closed_reopened.handlebars"
+    },
+    {
+      "SourceType": "IssueUpdated",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "issue_opened.handlebars"
+    },
+    {
+      "SourceType": "IssuePRComment",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "issue_pr_comment_text.handlebars"
+    },
+    {
+      "SourceType": "PullRequestOpened",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "pull_request_opened.handlebars"
+    },
+    {
+      "SourceType": "PullRequestClosed",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "pull_request_opened.handlebars"
+    },
+    {
+      "SourceType": "PullRequestReopened",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "pull_request_opened.handlebars"
+    },
+    {
+      "SourceType": "PullRequestReopenedReply",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "pull_request_closed_reopened.handlebars"
+    },
+    {
+      "SourceType": "PullRequestClosedReply",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "pull_request_closed_reopened.handlebars"
+    },
+    {
+      "SourceType": "PullRequestUpdated",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "pull_request_opened.handlebars"
+    },
+    {
+      "SourceType": "IssueOpened",
+      "ClientType": "Teams",
+      "TemplateType": "Liquid",
+      "TemplateName": "issue_opened.liquid"
+    },
+    {
+      "SourceType": "CodePushed",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "code_pushed.handlebars"
+    },
+    {
+      "SourceType": "issue.unfurl",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "issue_unfurl.handlebars"
+    },
+    {
+      "SourceType": "pull.unfurl",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "pull_unfurl.handlebars"
+    },
+    {
+      "SourceType": "comment.unfurl",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "comment_unfurl.handlebars"
+    },
+    {
+      "SourceType": "repo.unfurl",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "repo_unfurl.handlebars"
+    },
+    {
+      "SourceType": "account.unfurl",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "account_unfurl.handlebars"
+    },
+    {
+      "SourceType": "blob.unfurl",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "blob_unfurl.handlebars"
+    },
+    {
+      "SourceType": "PullRequestReviewSubmitted",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "pull_request_review_submitted.handlebars"
+    },
+    {
+      "SourceType": "PullRequestReviewEdited",
+      "ClientType": "Teams",
+      "TemplateType": "HandleBars",
+      "TemplateName": "pull_request_review_edited.handlebars"
+    }
+  ],
+  "partials":[],
+  "eventTransformer":[
+    {
+      "SourceType":"IssueOpened",
+      "TemplateType":"HandleBars",
+      "TemplateName":"issue_opened.handlebars"
+    },
+    {
+      "SourceType": "IssueOrPRPayloadGeneric",
+      "TemplateType": "HandleBars",
+      "TemplateName": "issue_pull_request_generic.handlebars"
+    }
+  ]
+}

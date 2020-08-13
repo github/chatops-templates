@@ -1,0 +1,9 @@
+{{#if (check_no_commits commitsCount forced)}}**force-pushed the [{{format_ref ref}}]({{repository.html_url}}/tree/{{format_ref ref}}) branch from [{{short_sha before}}]({{compare}}) to [{{short_sha after}}]({{compare}})**
+<div style="margin:4px 0px 4px 0px"><img style = "margin-right:4px"  src="{{baseURL}}/static/img/github-mark.png" height="16px" width="16px"/> <a href="{{repository.html_url}}">{{repository.full_name}}</a></div> 
+{{else}}
+**[{{commitsCount}} new {{#if_plural commitsCount}}commits{{else}}commit{{/if_plural}}]({{compare}}) {{#if forced}}force-pushed {{else}}pushed {{/if}} to [{{format_ref ref}}]({{repository.html_url}}/tree/{{format_ref ref}}) by [{{sender.login}}]({{sender.html_url}})**
+<div style="margin: 4px 0px 4px 0px"><img style = "margin-right:4px" src="{{baseURL}}/static/img/github-mark.png" height="16px" width="16px"/> <a href="{{repository.html_url}}">{{repository.full_name}}</a></div> 
+{{#each commits}}
+<code style="margin-right:6px"><a  href = "{{this.url}}">{{short_sha this.id}} </a> </code>{{format_message this.message}}<br>
+{{/each}}
+{{/if}}

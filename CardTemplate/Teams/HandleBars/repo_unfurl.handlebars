@@ -1,0 +1,91 @@
+{
+  "preview":
+  {
+    "contentType": "application/vnd.microsoft.card.thumbnail",
+    "contentUrl": null,
+    "content": {
+      "title": "{{{repository.full_name}}}",
+      "subtitle": null,
+      {{#if repository.description}} 
+      "text": "{{{repository.description}}}",
+      {{/if}}
+      "images": [
+        {
+          "url": "{{repository.owner.avatar_url}}",
+          "alt": null,
+          "tap": null
+        }
+      ],
+      "buttons": null,
+      "tap": null
+    },
+    "name": null,
+    "thumbnailUrl": null
+  },
+  "contentType": "application/vnd.microsoft.card.adaptive",
+  "content":
+  {
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "body": [
+      {
+        "type": "Container",
+        "items": [
+          {
+            "type": "TextBlock",
+            "text": "{{{repository.full_name}}}",
+            "weight": "bolder",
+            "size": "large",
+            "wrap": true
+          }
+          {{#if repository.description}} 
+          ,
+          {        
+            "type": "TextBlock",
+            "text": "{{{formatted_body repository.description}}}",
+            "wrap": true
+          }
+          {{/if}}
+          {{#list_image repository.description}}
+          ,
+            {
+              "type": "Image",
+              "url": "{{this}}"
+            }
+          {{/list_image}}
+        ]
+      },
+      {
+        "type": "Container",
+        "separator":true,
+        "items": [
+          {
+            "type": "FactSet",
+            "separator":true,
+            "facts": [
+              {
+                "title": "Last Updated:",
+                "value": "{{from_now_date repository.updated_at}}"
+              }
+              {{#if repository.network_count}}
+              ,
+              {
+                "title": "Forks:",
+                "value": "{{repository.network_count}}"
+              }
+              {{/if}}
+              {{#if repository.stargazers_count}}
+              ,
+              {
+                "title": "Stars:",
+                "value": "{{repository.stargazers_count}}"
+              }
+              {{/if}}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

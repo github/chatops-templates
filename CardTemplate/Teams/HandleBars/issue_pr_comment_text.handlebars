@@ -1,0 +1,12 @@
+<a style="font-weight: 600;" href= "{{comment_url}}">Comment</a>
+<span style="font-weight: 600;"> by </span>
+<a style="font-weight: 600;" href= "{{sender_url}}">@{{sender_login}}</a><br/>
+{{#if comment_body}}      
+  {{{comment_body}}} <br/>
+{{/if}}
+
+{{#each image_list}}
+  {{#if this }}
+  <img src="{{this}}" height="140px" width="256px" /><br/>
+  {{/if}}
+{{/each}}

@@ -1,0 +1,181 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "**Issue opened by {{{get_github_profile_link issue.user.login}}} on {{{formatted_date issue.created_at}}}**"
+        },
+        {
+          "type": "TextBlock",
+          "text": "[#{{issue.number}} {{{formatted_title issue.title}}}]({{issue.html_url}})",
+          "wrap": "true",
+          "weight": "bolder",
+          "spacing": "small",
+          "size": "large"
+        },
+        {
+          "type": "ColumnSet",
+          "spacing": "small",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "size": "small",
+                  "type": "Image",
+                  "url": "{{baseURL}}{{get_status_image_issue 'issue' issue.state}}",
+                  "height": "25px"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "auto",
+              "verticalContentAlignment": "Center",
+              "items": [
+                {
+                  "size": "small",
+                  "type": "Image",
+                  "url": "{{baseURL}}/static/img/github-mark.png",
+                  "height": "15px"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "auto",
+              "spacing": "small",
+              "verticalContentAlignment": "Center",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "[{{repository.full_name}}]({{repository.html_url}})",
+                  "wrap": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "separator":true,
+      "items": [
+        {{#if issue.body}}
+          {
+            "type": "TextBlock",
+            "text": "{{{formatted_body issue.body}}}",
+            "wrap": true
+          },
+        {{/if}}
+        {{#list_image issue.body}}
+          {
+            "type": "Image",
+            "url": "{{this}}"
+          },
+        {{/list_image}}
+          {
+            "type": "FactSet",
+            "separator":true,
+            "facts": [
+              {{#if issue.labels}}
+                {
+                  "title": "Labels:",
+                  "value": "{{label_short_text issue.labels}}"
+                }
+              {{/if}}
+              {{#if issue.assignees }}
+                {{#if issue.labels}}
+                  ,
+                {{/if}}
+                {
+                  "title": "Assignees:",
+                  "value": "{{assignees_short_text issue}}"
+                }
+              {{/if}}
+            ]
+          }
+        {{#if betaEnabled}}
+        ,
+        {
+          "type": "ActionSet",
+          "actions": [
+            {
+              "type": "Action.ShowCard",
+              "title": "Comment",
+              "style": "default",
+              "card": {
+                "type": "AdaptiveCard",
+                "body": [
+                  {
+                    "type": "Input.Text",
+                    "isMultiline": true,
+                    "placeholder": "Leave a comment here...",
+                    "id": "commentText"
+                  },
+                  {
+                    "type": "ActionSet",
+                    "actions": [
+                      {
+                        "type": "Action.Submit",
+                        "title": "Submit",
+                        "data": {
+                          "owner": "{{repository.owner.login}}",
+                          "repo": "{{repository.name}}",
+                          "issueNumber":"{{issue.number}}",
+                          "state": "{{issue.state}}",
+                          "actionType":"issueComment"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+            ,
+            {
+              "type": "Action.ShowCard",
+              "title": "{{state issue.state}}",
+              "style": "default",
+              "card": {
+                "type": "AdaptiveCard",
+                "body": [
+                  {
+                    "type": "Input.Text",
+                    "isMultiline": true,
+                    "placeholder": "Leave a comment here...",
+                    "id": "issueCommentText"
+                  },
+                  {
+                    "type": "ActionSet",
+                    "actions": [
+                      {
+                        "type": "Action.Submit",
+                        "title": "Submit",
+                        "data": {
+                          "owner": "{{repository.owner.login}}",
+                          "repo": "{{repository.name}}",
+                          "issueNumber":"{{issue.number}}",
+                          "state": "{{issue.state}}",
+                          "actionType":"changeIssueState"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+        {{/if}}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "preview":
+  {
+    "contentType": "application/vnd.microsoft.card.thumbnail",
+    "contentUrl": null,
+    "content": {
+      "title": "#{{issue.number}} {{{formatted_title issue.title}}}",
+      "subtitle": null,
+      "text": "{{issue.state}} | {{issue.user.login}} created this issue on {{formatted_date issue.created_at}} | {{issue.comments}} {{#if_plural issue.comments}}comments{{else}}comment{{/if_plural}}",
+      "images": [
+        {
+          "url": "{{issue.user.avatar_url}}",
+          "alt": null,
+          "tap": null
+        }
+      ],
+      "buttons": null,
+      "tap": null
+    },
+    "name": null,
+    "thumbnailUrl": null
+  },
+  "contentType": "application/vnd.microsoft.card.adaptive",
+  "content":
+  {
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "body": [
+      {
+        "type": "Container",
+        "items": [
+          {
+            "type": "TextBlock",
+            "text": "#{{issue.number}} {{{formatted_title issue.title}}}",
+            "weight": "bolder",
+            "size": "large",
+            "wrap": true
+          },
+          {
+            "type": "ColumnSet",
+            "spacing": "small",
+            "columns": [
+              {
+                "type": "Column",
+                "width": "auto",
+                "items": [
+                  {
+                    "size": "small",
+                    "type": "Image",
+                    "url": "{{issue.user.avatar_url}}",
+                    "height": "25px"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "width": "auto",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "[{{issue.user.login}}]({{issue.user.url}}) created this issue on {{formatted_date issue.created_at}}. {{issue.comments}} {{#if_plural issue.comments}}comments{{else}}comment{{/if_plural}}",
+                    "wrap": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "ColumnSet",
+            "spacing": "small",
+            "columns": [
+              {
+                "type": "Column",
+                "width": "auto",
+                "items": [
+                  {
+                    "size": "small",
+                    "type": "Image",
+                    "url": "{{baseURL}}{{get_status_image_issue 'issue' issue.state}}",
+                    "height": "25px"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "width": "auto",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "size": "small",
+                    "type": "Image",
+                    "url": "{{baseURL}}/static/img/github-mark.png",
+                    "height": "15px"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "width": "auto",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "[{{repository.full_name}}]({{repository.html_url}})",
+                    "wrap": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Container",
+        "separator":true,
+        "items": [
+          {{#if issue.body}}      
+            {
+              "type": "TextBlock",
+              "text": "{{{formatted_body issue.body}}}",
+              "wrap": true
+            },
+          {{/if}}
+          {{#list_image issue.body}}
+            {
+              "type": "Image",
+              "url": "{{this}}"
+            },
+          {{/list_image}}
+          {
+            "type": "FactSet",
+            "separator":true,
+            "facts": [
+              {{#if issue.labels}}
+                {
+                  "title": "Labels:",
+                  "value": "{{label_short_text issue.labels}}"
+                }
+              {{/if}}
+              {{#if issue.assignees }}
+                {{#if issue.labels}}
+                  ,
+                {{/if}}
+                {
+                  "title": "Assignees:",
+                  "value": "{{assignees_short_text issue}}"
+                }
+              {{/if}}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "sender_login": "{{sender.login}}",  
+  "sender_url": "{{sender.html_url}}",
+  "comment_url": "{{comment.html_url}}",
+  "comment_body": "{{{formatted_body_html comment.body}}}",
+  "image_list" : [
+     {{#list_image comment.body}}
+     "{{this}}",
+     {{/list_image}}
+    ""
+  ]
+}

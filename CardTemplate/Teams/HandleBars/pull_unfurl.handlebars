@@ -1,0 +1,174 @@
+{
+  "preview":
+  {
+    "contentType": "application/vnd.microsoft.card.thumbnail",
+    "contentUrl": null,
+    "content": {
+      "title": "#{{pull.number}} {{{formatted_title pull.title}}}",
+      "subtitle": null,
+      "text": "{{#if pull.draft}}draft{{else}}{{pull.state}}{{/if}} | merge {{pull.commits}} {{#if_plural pull.commits}}commits{{else}}commit{{/if_plural}} into {{pull.base.ref}} from {{pull.head.ref}}",
+      "images": [
+        {
+          "url": "{{pull.user.avatar_url}}",
+          "alt": null,
+          "tap": null
+        }
+      ],
+      "buttons": null,
+      "tap": null
+    },
+    "name": null,
+    "thumbnailUrl": null
+  },
+  "contentType": "application/vnd.microsoft.card.adaptive",
+  "content":
+  {
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "body": [
+      {
+        "type": "Container",
+        "items": [
+          {
+            "type": "TextBlock",
+            "text": "#{{pull.number}} {{{formatted_title pull.title}}}",
+            "weight": "bolder",
+            "size": "large",
+            "wrap": true
+          },
+          {
+            "type": "ColumnSet",
+            "spacing": "small",
+            "columns": [
+              {
+                "type": "Column",
+                "width": "auto",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "size": "small",
+                    "type": "Image",
+                    "url": "{{pull.user.avatar_url}}",
+                    "height": "25px"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "width": "auto",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "merge {{pull.commits}} {{#if_plural pull.commits}}commits{{else}}commit{{/if_plural}} into [{{pull.base.ref}}]({{repository.html_url}}/tree/{{pull.base.ref}}) from [{{pull.head.ref}}]({{repository.html_url}}/tree/{{pull.head.ref}})",
+                    "spacing": "small",
+                    "wrap": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "ColumnSet",
+            "spacing": "small",
+            "columns": [
+              {
+                "type": "Column",
+                "width": "auto",
+                "items": [
+                  {
+                    "size": "small",
+                    "type": "Image",
+                    "url": "{{baseURL}}{{get_status_image_pr 'pull_request' pull}}",
+                    "height": "25px"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "width": "auto",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "size": "small",
+                    "type": "Image",
+                    "url": "{{baseURL}}/static/img/github-mark.png",
+                    "height": "15px"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "width": "auto",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "[{{repository.full_name}}]({{repository.html_url}})",
+                    "wrap": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Container",
+        "separator": true,
+        "items": [
+          {{#if pull.body}}      
+            {
+              "type": "TextBlock",
+              "text": "{{{formatted_body pull.body}}}",
+              "wrap": true
+            },
+          {{/if}}
+          {{#list_image pull.body}}
+            {
+              "type": "Image",
+              "url": "{{this}}"
+            },
+          {{/list_image}}
+          {
+            "type": "FactSet",
+            "separator":true,
+            "facts": [
+              {{#if (is_present pull.requested_reviewers pull.requested_teams)}}
+                {
+                  "title": "Reviewers:",
+                  "value": "{{reviewers_short_text repository pull}}"
+                }
+              {{/if}}
+              {{#if pull.labels}}
+                {{#if (is_present pull.requested_reviewers pull.requested_teams)}}
+                  ,
+                {{/if}}
+                {
+                  "title": "Labels:",
+                  "value": "{{label_short_text pull.labels}}"
+                }
+              {{/if}}
+              {{#if pull.assignees}}
+                {{#if pull.labels}}
+                  ,
+                {{else}}
+                  {{#if (is_present pull.requested_reviewers pull.requested_teams)}}
+                    ,
+                  {{/if}}
+                {{/if}}
+                {
+                  "title": "Assignees:",
+                  "value": "{{assignees_short_text pull}}"
+                }
+              {{/if}}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

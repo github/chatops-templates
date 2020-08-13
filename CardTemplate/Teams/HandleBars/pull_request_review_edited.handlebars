@@ -1,0 +1,9 @@
+{{review_image_unicode review.state}} <a style="font-weight: 600;" href= "{{review.html_url}}">{{review_message review.state}}</a>
+<span style="font-weight: 600;"> by </span>
+<a style="font-weight: 600;" href= "{{sender.html_url}}">@{{sender.login}}</a><br/>
+{{#if review.body}}
+ {{{ formatted_body_html review.body}}} <br/>
+{{/if}}
+{{#list_image review.body}}
+  <img src="{{this}}" height="140px" width="256px" /><br/>
+{{/list_image}}

@@ -1,0 +1,3 @@
+<span style="font-weight: 600;">Pull request {{#if pull_request.merged}} merged {{else}} {{action}} {{/if}} by </span>
+<a style="font-weight: 600;" href= "{{sender.html_url}}">@{{sender.login}}</a><br/>
+<a style="font-weight: 600;" href= "{{pull_request.html_url}}">#{{pull_request.number}} {{{formatted_html pull_request.title}}}</a><br/>

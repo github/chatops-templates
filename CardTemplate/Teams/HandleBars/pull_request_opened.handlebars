@@ -1,0 +1,315 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+           "text": "**Pull request opened by {{{get_github_profile_link pull_request.user.login}}} on {{{formatted_date pull_request.created_at}}}**"
+        },
+        {
+          "type": "TextBlock",
+          "text": "[#{{pull_request.number}} {{{formatted_title pull_request.title}}}]({{pull_request.html_url}})",
+          "wrap": "true",
+          "weight": "bolder",
+          "spacing": "small",
+          "size": "large"
+        },
+        {
+          "type": "ColumnSet",
+          "spacing": "small",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "size": "small",  
+                  "type": "Image",
+                  "url": "{{baseURL}}{{get_status_image_pr 'pull_request' pull_request}}",
+                  "height": "25px"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "auto",
+              "verticalContentAlignment": "Center",
+              "items": [
+                {
+                  "size": "small",
+                  "type": "Image",
+                  "url": "{{baseURL}}/static/img/github-mark.png",
+                  "height": "15px"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "auto",
+              "spacing": "small",
+              "verticalContentAlignment": "Center",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "[{{repository.full_name}}]({{repository.html_url}})",
+                  "wrap": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "TextBlock",
+          "text": "merge {{pull_request.commits}} {{#if_plural pull_request.commits}}commits{{else}}commit{{/if_plural}} into [{{
+            pull_request.base.ref}}]({{repository.html_url}}/tree/{{pull_request.base.ref}}) from [{{pull_request.head.ref}}]({{
+            repository.html_url}}/tree/{{pull_request.head.ref}})",
+          "spacing": "small",
+          "wrap": "true"
+        }
+      ]
+    },
+    {{#if pull_request.body}}
+    {
+      "type": "Container",
+      "separator": true,
+      "items": [
+            {
+              "type": "TextBlock",
+              "text": "{{{formatted_body pull_request.body}}}",
+              "wrap": true
+            }
+          {{#list_image pull_request.body}}
+            ,
+            {
+              "type": "Image",
+              "url": "{{this}}"
+            }
+          {{/list_image}}
+      ]
+    },
+    {{/if}}
+    {
+      "type": "Container",
+      "separator": true,
+      "items": [
+        { 
+          "type": "ColumnSet",
+          "spacing": "small",
+          "columns": [
+              {
+                "type": "Column",
+                "width": "97px",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "**Files Changed:**",
+                    "weight": "bolder"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "[{{pull_request.changed_files}}]({{pull_request.html_url}}/files)"
+                  }
+                ]
+              }
+          ]
+        },
+        { 
+          "type": "ColumnSet",
+          "spacing": "None",
+          "columns": [
+            {{#if check_context}}
+              {
+                "type": "Column",
+                "width": "97px",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "**Checks:**",
+                    "weight": "bolder"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "width": "auto",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  { 
+                    "size": "small",  
+                    "type": "Image",
+                    "url": "{{baseURL}}{{{check_image check_context}}}",
+                    "height": "9px"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "wrap": "true",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "[{{{check_message check_context}}}]({{pull_request.html_url}}/checks)"
+                  }
+                ]
+              }
+            {{/if}}
+          ]
+        },
+        { 
+          "type": "ColumnSet",
+          "spacing": "None",
+          "columns": [
+            {{#if (is_present pull_request.requested_reviewers pull_request.requested_teams)}}
+              {
+                "type": "Column",
+                "width": "97px",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "**Reviewers:**",
+                    "weight": "bolder"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "{{reviewers_short_text repository pull_request}}"
+                  }
+                ]
+              }
+            {{/if}}
+          ]
+        },
+        { 
+          "type": "ColumnSet",
+          "spacing": "None",
+          "columns": [
+            {{#if pull_request.labels}}
+              {
+                "type": "Column",
+                "width": "97px",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "**Labels:**",
+                    "weight": "bolder"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "{{label_short_text pull_request.labels}}"
+                  }
+                ]
+              }
+            {{/if}}
+          ]
+        },
+        { 
+          "type": "ColumnSet",
+          "spacing": "None",
+          "columns": [
+            {{#if pull_request.assignees}}
+              {
+                "type": "Column",
+                "width": "97px",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "**Assignees:**",
+                    "weight": "bolder"
+                  }
+                ]
+              },
+              {
+                "type": "Column",
+                "spacing": "small",
+                "verticalContentAlignment": "Center",
+                "items": [
+                  {
+                    "type": "TextBlock",
+                    "text": "{{assignees_short_text pull_request}}"
+                  }
+                ]
+              }
+            {{/if}}
+          ]
+        }
+        {{#if betaEnabled}}
+        ,
+        {
+          "type": "ActionSet",
+          "actions": [
+            {
+              "type": "Action.ShowCard",
+              "title": "Comment",
+              "style": "default",
+              "card": {
+                "type": "AdaptiveCard",
+                "body": [
+                  {
+                    "type": "Input.Text",
+                    "isMultiline": true,
+                    "id": "commentText",
+                    "placeholder": "Leave a comment here..."
+                  },
+                  {
+                    "type": "ActionSet",
+                    "actions": [
+                      {
+                        "type": "Action.Submit",
+                        "title": "Submit",
+                        "style": "default",
+                        "data": {
+                          "owner": "{{repository.owner.login}}",
+                          "repo": "{{repository.name}}",
+                          "prNumber":"{{pull_request.number}}",
+                          "actionType":"prComment"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+        {{/if}}
+      ]
+    }
+  ]
+}

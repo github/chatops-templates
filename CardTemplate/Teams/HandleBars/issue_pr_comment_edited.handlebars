@@ -1,0 +1,37 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Comment by **{{sender.login}}**"
+    },
+    {{#if issue}}
+      {
+        "type": "TextBlock",
+        "text": "[Comment on #{{issue.number}} {{{formatted_title issue.title}}}]({{comment.html_url}})"
+      }
+    {{/if}}
+    {{#if pull_request}}
+      {
+        "type": "TextBlock",
+        "text": "[Comment on #{{pull_request.number}} {{{formatted_title pull_request.title}}}]({{comment.html_url}})"
+      }
+    {{/if}}
+    {{#if comment.body}}      
+         ,{
+            "type": "TextBlock",
+            "text": "{{{formatted_body comment.body}}}",
+            "wrap": true,
+            "spacing" : "none"
+          }
+    {{/if}}
+    {{#list_image comment.body}}
+          ,{
+            "type": "Image",
+            "url": "{{this}}"
+          }
+    {{/list_image}}
+  ]
+ }
