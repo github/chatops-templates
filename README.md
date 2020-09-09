@@ -37,7 +37,7 @@ More Info of how to use the templates with [Dynamic-Template-Engine](https://git
 ## Using a public repo vs local copy?
 
 If the templates you use are generic or do not contain any internal data then having those templates in a public repo allows you to share your templates with the world, helping get user contributions and suggestions. 
-If the templates being used have some confidential data or copyright data then having the templates as a local copy will be the recommended way.
+If the templates being used have content you wish to keep private, then having the templates as a local copy is the recommended way.
 
 ## Understanding the TransformerConfig
 
