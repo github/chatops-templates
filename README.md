@@ -72,3 +72,15 @@ The TransformerConfig.json is the file that allows you to load different templat
 ## Setup
 
 For setting up the dynamic-template-engine to work with a repo follow the [setup instructions of dynamic-template-engine](https://github.com/github/Dynamic-Template-Engine#setup)
+
+## Contributing
+Want to help improve the integration between GitHub and Slack? Check out the [contributing docs](CONTRIBUTING.md) to get involved.
+
+## Code of Conduct
+
+See [our code of conduct](CODE_OF_CONDUCT.md).
+
+## License
+The project is available as open source under the terms of the [MIT License](LICENSE).
+
+When using the GitHub logos, be sure to follow the [GitHub logo guidelines](https://github.com/logos).
